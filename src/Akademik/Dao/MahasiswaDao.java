@@ -31,6 +31,18 @@ public class MahasiswaDao {
             String kodeMK = input.nextLine();
 
             if (opsi == 1) {
+                // Cek apakah data sudah ada
+                String cekSql = "SELECT * FROM nilai WHERE FK_Mahasiswa = ? AND FK_Matkul = ?";
+                PreparedStatement cekPS = conn.prepareStatement(cekSql);
+                cekPS.setString(1, npm);
+                cekPS.setString(2, kodeMK);
+                ResultSet cekRS = cekPS.executeQuery();
+
+                if (cekRS.next()) {
+                    System.out.println("❌ Anda sudah mengambil mata kuliah ini sebelumnya.");
+                    return;
+                }
+                
                 // Masukkan nilai kosong (sebagai bukti pengambilan MK)
                 String sql = "INSERT INTO nilai (Nilai_uts, Nilai_uas, Nilai_Praktikum, Nilai_Akhir, Nilai_Huruf, Kredit, Bobot, Semester, Tahun_ajar, FK_Matkul, FK_Mahasiswa) " +
                         "VALUES (0, 0, 0, 0, '-', 0, 0, '-', 2024, ?, ?)";
