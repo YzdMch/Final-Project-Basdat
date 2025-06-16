@@ -3,7 +3,6 @@ package Akademik;
 import Akademik.Menu.AdminMenu;
 import Akademik.Menu.DosenMenu;
 import Akademik.Menu.MahasiswaMenu;
-import java.util.Scanner;
 
 import java.util.Scanner;
 
@@ -11,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         // TODO code application logic here
+        
         Scanner input = new Scanner(System.in);
         int pilihan;
 

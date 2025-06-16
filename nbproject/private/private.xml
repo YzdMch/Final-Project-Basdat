@@ -4,17 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Model/Dosen.java</file>
+            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Model/Nilai.java</file>
+            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Model/MataKuliah.java</file>
+            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/DBConnection.java</file>
+            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Dao/NilaiDao.java</file>
+            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Dao/DosenDao.java</file>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Menu/AdminMenu.java</file>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Model/Mahasiswa.java</file>
-            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Model/MataKuliah.java</file>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Dao/MahasiswaDao.java</file>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Dao/MataKuliahDao.java</file>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Menu/MahasiswaMenu.java</file>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Main.java</file>
             <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Menu/DosenMenu.java</file>
-            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Dao/NilaiDao.java</file>
-            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Dao/DosenDao.java</file>
-            <file>file:/D:/FIle%20kuliah/semester%202/Basis%20data/final%20project/Final%20Project%20Java/src/Akademik/Database.java</file>
         </group>
     </open-files>
 </project-private>

@@ -36,7 +36,19 @@ public class NilaiDao {
 
             System.out.print("Masukkan NPM Mahasiswa: ");
             String npm = input.nextLine();
+            
+            // Cek apakah data sudah ada
+            String cekSql = "SELECT * FROM nilai WHERE FK_Mahasiswa = ? AND FK_Matkul = ?";
+            PreparedStatement cekPS = conn.prepareStatement(cekSql);
+            cekPS.setString(1, npm);
+            cekPS.setString(2, kodeMK);
+            ResultSet cekRS = cekPS.executeQuery();
 
+            if (cekRS.next()) {
+                System.out.println("❌ Mahasiswa ini sudah memiliki nilai untuk mata kuliah tersebut.");
+                return;
+            }
+            
             // Input nilai
             System.out.print("Nilai UTS: ");
             double uts = Double.parseDouble(input.nextLine());

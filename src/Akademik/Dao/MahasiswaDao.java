@@ -31,6 +31,7 @@ public class MahasiswaDao {
             String kodeMK = input.nextLine();
 
             if (opsi == 1) {
+                
                 // Cek apakah data sudah ada
                 String cekSql = "SELECT * FROM nilai WHERE FK_Mahasiswa = ? AND FK_Matkul = ?";
                 PreparedStatement cekPS = conn.prepareStatement(cekSql);
@@ -81,40 +82,82 @@ public class MahasiswaDao {
             System.out.print("Masukkan NPM Anda: ");
             String npm = input.nextLine();
 
-            String sql = "SELECT mk.Nama_MK, mk.SKS, n.Nilai_uts, n.Nilai_uas, n.Nilai_praktikum, " +
-                         "n.Nilai_akhir, n.Nilai_Huruf, n.Kredit, n.Bobot " +
+            // Ambil biodata mahasiswa
+            String bioSql = "SELECT m.Nama_Mhs, m.Semester_Aktif, n.Tahun_ajar, n.Semester, d.Nama_Dsn " +
+                            "FROM mahasiswa m " +
+                            "JOIN nilai n ON m.NPM = n.FK_Mahasiswa " +
+                            "LEFT JOIN dosen d ON m.FK_Dosen = d.NIDN " +
+                            "WHERE m.NPM = ? LIMIT 1";
+            PreparedStatement bioPs = conn.prepareStatement(bioSql);
+            bioPs.setString(1, npm);
+            ResultSet bioRs = bioPs.executeQuery();
+
+            if (!bioRs.next()) {
+                System.out.println("Data tidak ditemukan.");
+                return;
+            }
+
+            String nama = bioRs.getString("Nama_Mhs");
+            String semester = bioRs.getString("Semester");
+            String tahun = bioRs.getString("Tahun_ajar");
+            String dosenWali = bioRs.getString("Nama_Dsn");
+
+            // Tampilkan header
+            System.out.println("\nNPM     : " + npm);
+            System.out.println("Nama    : " + nama);
+            System.out.println("Semester: " + semester + " TA. " + tahun);
+            System.out.println("Dosen Wali: " + dosenWali);
+
+            // Ambil nilai-nilai
+            String sql = "SELECT mk.Kode_MK, mk.Nama_MK, mk.SKS, mk.Kelas, " +
+                         "n.Nilai_uts, n.Nilai_uas, n.Nilai_praktikum, n.Nilai_akhir, " +
+                         "n.Nilai_huruf, n.Kredit, n.Bobot " +
                          "FROM nilai n JOIN mata_kuliah mk ON n.FK_Matkul = mk.Kode_MK " +
                          "WHERE n.FK_Mahasiswa = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, npm);
             ResultSet rs = ps.executeQuery();
 
+            // Header tabel
+            System.out.println("\n+----+--------+------------------------------+-----+-------+-------+-------+-----------+--------+--------+--------+");
+            System.out.println("| No | Kode   | Mata Kuliah                  | SKS | Kelas | UTS   | UAS   | Praktikum | Total  | Huruf  | NxK    |");
+            System.out.println("+----+--------+------------------------------+-----+-------+-------+-------+-----------+--------+--------+--------+");
+
+            int no = 1;
             double totalBobot = 0;
             int totalSKS = 0;
 
-            System.out.println("\n=== KHS MAHASISWA ===");
             while (rs.next()) {
+                String kode = rs.getString("Kode_MK");
                 String mk = rs.getString("Nama_MK");
                 int sks = rs.getInt("SKS");
+                String kelas = rs.getString("Kelas");
+                double uts = rs.getDouble("Nilai_uts");
+                double uas = rs.getDouble("Nilai_uas");
+                double prak = rs.getDouble("Nilai_praktikum");
                 double akhir = rs.getDouble("Nilai_akhir");
-                String huruf = rs.getString("Nilai_Huruf");
+                String huruf = rs.getString("Nilai_huruf");
+                double kredit = rs.getDouble("Kredit");
                 double bobot = rs.getDouble("Bobot");
+
+                System.out.printf("| %-2d | %-6s | %-28s | %-3d | %-5s | %-5.1f | %-5.1f | %-9.1f | %-6.2f | %-6s | %-6.2f |\n",
+                        no++, kode, potong(mk, 28), sks, kelas, uts, uas, prak, akhir, huruf, bobot);
 
                 totalBobot += bobot;
                 totalSKS += sks;
-
-                System.out.println(mk + " | SKS: " + sks + " | Akhir: " + akhir + " | Huruf: " + huruf + " | Bobot: " + bobot);
             }
+
+            System.out.println("+----+--------+------------------------------+-----+-------+-------+-------+-----------+--------+--------+--------+");
 
             if (totalSKS == 0) {
                 System.out.println("Belum ada mata kuliah diambil.");
                 return;
             }
 
-            double ip = Math.round((totalBobot / totalSKS) * 100.0) / 100.0;
-            System.out.println("\nIP Semester: " + ip);
+            double ip = Math.round((totalBobot / totalSKS) * 1000.0) / 1000.0;
+            System.out.println("Indeks Prestasi : " + ip);
 
-            // Simulasi pengecekan nilai salah
+            // Simulasi jika ada nilai salah
             System.out.print("Apakah ada nilai yang salah? (y/n): ");
             String jawab = input.nextLine();
             if (jawab.equalsIgnoreCase("y")) {
@@ -125,6 +168,13 @@ public class MahasiswaDao {
             System.out.println("❌ Gagal melihat KHS: " + e.getMessage());
         }
     }
+
+// Fungsi bantu untuk memotong string
+private static String potong(String teks, int max) {
+    if (teks.length() > max) return teks.substring(0, max - 1) + ".";
+    return teks;
+}
+
     
     public static void tambahMahasiswa(Mahasiswa m) {
         Connection conn = DBConnection.connect();
