@@ -35,6 +35,6 @@ public class DosenMenu {
                     System.out.println("Pilihan tidak valid.");
             }
 
-        } while (pilihan != 3);
+        } while (pilihan != 4);
     }
 }
