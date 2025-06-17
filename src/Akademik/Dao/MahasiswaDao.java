@@ -161,8 +161,13 @@ public class MahasiswaDao {
             System.out.print("Apakah ada nilai yang salah? (y/n): ");
             String jawab = input.nextLine();
             if (jawab.equalsIgnoreCase("y")) {
-                System.out.println("KHS akan diperbaiki.");
-            }
+                System.out.print("Masukkan Kode Mata Kuliah yang ingin direvisi: ");
+                String kodeMK = input.nextLine();
+                System.out.print("Masukkan catatan revisi: ");
+                String catatan = input.nextLine();
+
+                RevisiDao.tambahPermintaan(npm, kodeMK, catatan);
+}
 
         } catch (Exception e) {
             System.out.println("❌ Gagal melihat KHS: " + e.getMessage());
