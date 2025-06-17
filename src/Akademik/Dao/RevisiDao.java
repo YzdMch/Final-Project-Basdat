@@ -1,9 +1,9 @@
 package Akademik.Dao;
 
-import java.util.Scanner;
 import Akademik.Dao.NilaiDao;
-import Akademik.Queue.Node;
-import Akademik.Queue.RevisiQueue;
+import Akademik.Queue.*;
+
+import java.util.Scanner;
 
 public class RevisiDao {
     static RevisiQueue antrian = new RevisiQueue();
