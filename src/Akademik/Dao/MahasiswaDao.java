@@ -29,6 +29,10 @@ public class MahasiswaDao {
 
             System.out.print("Masukkan Kode MK: ");
             String kodeMK = input.nextLine();
+            
+            System.out.print("Masukkan Semester: ");
+            String Semester = input.nextLine();
+
 
             if (opsi == 1) {
                 
@@ -46,10 +50,11 @@ public class MahasiswaDao {
                 
                 // Masukkan nilai kosong (sebagai bukti pengambilan MK)
                 String sql = "INSERT INTO nilai (Nilai_uts, Nilai_uas, Nilai_Praktikum, Nilai_Akhir, Nilai_Huruf, Kredit, Bobot, Semester, Tahun_ajar, FK_Matkul, FK_Mahasiswa) " +
-                        "VALUES (0, 0, 0, 0, '-', 0, 0, '-', 2024, ?, ?)";
+                        "VALUES (0, 0, 0, 0, '-', 0, 0, ?, 2024, ?, ?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, kodeMK);
-                ps.setString(2, npm);
+                ps.setString(1, Semester);
+                ps.setString(2, kodeMK);
+                ps.setString(3, npm);
                 ps.executeUpdate();
                 System.out.println("✅ Mata kuliah berhasil diambil.");
 
